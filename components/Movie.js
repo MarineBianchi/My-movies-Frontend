@@ -4,10 +4,13 @@ import { faHeart, faStar, faVideo } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/Movie.module.css';
 
 function Movie(props) {
+
+  // Fonctions en durs, sans donn&es
   const [watchCount, setWatchCount] = useState(0);
   const [personalNote, setPersonalNote] = useState(0);
 
   // Average evaluation
+  // on boucle sur nos 10 étoiles en ajoutant 1 pour combler 0
   const stars = [];
   for (let i = 0; i < 10; i++) {
     let style = {};
@@ -27,6 +30,7 @@ function Movie(props) {
   }
 
   // Like movie
+  // on passe le paramètre du parent, si le boolean is true, et que le film est dans les likés le coeur est rose sinon nom, système de toggle
   const handleLikeMovie = () => {
     props.updateLikedMovies(props.title);
   };
