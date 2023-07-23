@@ -5,12 +5,12 @@ import styles from '../styles/Movie.module.css';
 
 function Movie(props) {
 
-  // Etats et setteurs du nombre de vue + de la note personnelle qu'on attribue aux movies
+  // Etats et setteurs du nombre de vues + de la note personnelle qu'on attribue aux movies
 
   const [watchCount, setWatchCount] = useState(0);
   const [personalNote, setPersonalNote] = useState(0);
 
-  // Push des étoiles et colorisation en fonction de leur classement tranmis via l'API
+  // Push des étoiles et colorisation en fonction de leur classement transmis via l'API
 
   const stars = [];
   for (let i = 0; i < 10; i++) {
@@ -33,6 +33,7 @@ function Movie(props) {
 
 
   // fonction qui permet de mettre à jour le tableau des likedmovies grace aux props en envoyant le titre du movie à comparer. S'active au click sur l'icone (dans le return)
+  
   const handleLikeMovie = () => {
     props.updateLikedMovies(props.title);
   };

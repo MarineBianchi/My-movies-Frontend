@@ -9,12 +9,12 @@ import styles from '../styles/Home.module.css';
 
 function Home() {
 
-  // Tableau contenant mes films likés
+  // Tableau contenant mes liked movies
   const [likedMovies, setLikedMovies] = useState([]);
 
   // Liked movies (inverse data flow)
 
-  // Fonction qui met à jour la liste d'ajouter des movies seulement si ils n'y sont pas/d'enlever si ils y sont
+  // Fonction qui ajoute des movies seulement si ils n'y sont pas et enlève si ils y sont
   const updateLikedMovies = (movieTitle) => {
     if (likedMovies.find(movie => movie === movieTitle)) {
       setLikedMovies(likedMovies.filter(movie => movie !== movieTitle));
@@ -23,7 +23,7 @@ function Home() {
     }
   };
 
-  // on map dans le tableau de likedmovies > génére pour chaque composant un span avec sa croix cliquable qui déclenche la fonction onClick de mise à jour (donc de suppression comme le movie sera dans le tableau)
+  // on map dans le tableau de likedmovies > génére un span pour chaque composant avec icone croix cliquable qui déclenche la fonction onClick de mise à jour (donc de suppression comme le movie sera dans le tableau)
 
   const likedMoviesPopover = likedMovies.map((data, i) => {
     return (
@@ -34,17 +34,17 @@ function Home() {
     );
   });
 
-  // module de la ibrairie Ant Design
+  // module de la librairie Ant Design
   const popoverContent = (
     <div className={styles.popoverContent}>
       {likedMoviesPopover}
     </div>
   );
 
-  // Initialisation de  état de données en tableau vide avant le fetch
+  // Initialisation de l'état de données en tableau vide avant le fetch
   const [MoviesData, setMoviesData] = useState([]);
 
-  // On fetch dans un useEffect pour ne pas faire une boucle infinie et seulement mettre à jour à l'initialisation
+  // On fetch dans un useEffect pour ne pas faire une boucle infinie et implémenter les données de l'API à l'initialisation du composant
   useEffect(() => {
     fetch('http://localhost:3000/movies')
       .then(response => response.json())
@@ -54,7 +54,7 @@ function Home() {
         const MoviesData = data.movies.map(movie => {
         const poster = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;    
 
-        // reformatage pas besoin de toutes les données de l'API + faire correspondre aux props définies avant le fetch
+        // reformatage pas besoin de toutes les données de l'API + correspondance aux props définies avant le fetch
         // On limite la longueur de la description
 
           return { title: movie.title, poster : poster, voteAverage: movie.vote_average, voteCount: movie.vote_count, overview: movie.overview.length> 250 ? movie.overview.substr(0, 250)+"..." : movie.overview };
@@ -65,7 +65,7 @@ function Home() {
   }, []);
 
 
-//  boucle dans la données, exporte les props (dont la fonction de mise à jour des films likés),pour les utiliser dans le composant enfant
+//  boucle dans les données, export des props (dont la fonction de mise à jour des films likés), pour les utiliser dans le composant enfant
 
   const movies = MoviesData.map((data, i) => {
     const isLiked = likedMovies.some(movie => movie === data.title);
