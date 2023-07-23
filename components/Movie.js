@@ -5,12 +5,13 @@ import styles from '../styles/Movie.module.css';
 
 function Movie(props) {
 
-  // Fonctions en durs, sans donn&es
+  // Etats et setteurs du nombre de vue + de la note personnelle qu'on attribue aux movies
+
   const [watchCount, setWatchCount] = useState(0);
   const [personalNote, setPersonalNote] = useState(0);
 
-  // Average evaluation
-  // on boucle sur nos 10 étoiles en ajoutant 1 pour combler 0
+  // Push des étoiles et colorisation en fonction de leur classement tranmis via l'API
+
   const stars = [];
   for (let i = 0; i < 10; i++) {
     let style = {};
@@ -20,7 +21,7 @@ function Movie(props) {
     stars.push(<FontAwesomeIcon key={i} icon={faStar} style={style} />);
   }
 
-  // Watch movie
+  // Fonction qui permet de coloriser l'icone et de compter le nombre de visionnage, s'active au click sur l'icone (dans le return)
   const handleWatchMovie = () => {
     setWatchCount(watchCount + 1);
   };
@@ -29,8 +30,9 @@ function Movie(props) {
     videoIconStyle = { 'color': '#e74c3c', 'cursor': 'pointer' };
   }
 
-  // Like movie
-  // on passe le paramètre du parent, si le boolean is true, et que le film est dans les likés le coeur est rose sinon nom, système de toggle
+
+
+  // fonction qui permet de mettre à jour le tableau des likedmovies grace aux props en envoyant le titre du movie à comparer. S'active au click sur l'icone (dans le return)
   const handleLikeMovie = () => {
     props.updateLikedMovies(props.title);
   };
@@ -39,7 +41,8 @@ function Movie(props) {
     heartIconStyle = { 'color': '#e74c3c', 'cursor': 'pointer' };
   }
 
-  // Personal note
+
+  // Note pesonnelle qu'on attribue aux movies avec setteur au clic pour gérer le changement de couleur
   const personalStars = [];
   for (let i = 0; i < 10; i++) {
     let style = { 'cursor': 'pointer' };
